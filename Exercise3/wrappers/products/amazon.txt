@@ -1,0 +1,7 @@
+doc("http://www.amazon.com/")
+//following::input[@name="field-keywords"]/{"ARTIST_NAME"}
+/following::input[@title="Go"]/{click /}
+//div[contains(@class, 'prod')]:<product>
+[.//span[contains(@class, "lrg bold")]:<title=string(.)>]
+[.//ul[contains(@class, "rsltL")]/li/a/span[contains(@class, 'lrg')][2]:<type=string(.)>]
+[.//ul[contains(@class, "rsltL")]/li/a/span[contains(@class, 'red')]:<price=string(.)>]

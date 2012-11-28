@@ -1,0 +1,11 @@
+doc("http://www.songkick.com")
+/descendant::input#site-search-box/{"ARTIST_NAME"}
+/following::input[contains(@class, 'search-button')]/{click/}
+//div[contains(@class, 'component')][contains(@class, 'facets')]
+/ul/li[4]/a/{click/}
+//li[contains(@class, 'event')]:<event>
+[.//span[contains(@class, 'day')]:<day=string(.)>]
+[.//span[contains(@class, 'date')]:<date=string(.)>]
+[.//span[contains(@class, 'month')]:<month=string(.)>]
+[.//span[contains(@class, 'year')]:<year=string(.)>]
+[.//p[contains(@class, 'subject')]/text()[3]:<venue=string(.)>]
