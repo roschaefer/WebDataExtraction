@@ -45,22 +45,36 @@ search_results = agent.submit(search_form, search_form.buttons.first)
 artists = search_results.link_with(:text => 'Artist').click
 
 artist = artists.link_with(:class => /search_result_title/).click
-#TODO fetch more than the default albums
+#TODO fetch more than the default size of albums
 
 
 doc = Nokogiri::HTML(artist.body)
 rows = doc.css('table.discography tbody tr.main')
-details = rows.collect do |row|
-  detail = {}
+albums = rows.collect do |row|
+  album = {}
   [
     [:title, 'td[2]//a/text()'],
-    [:year, 'td[4]//text()']
+    [:year, 'td[4]//text()'],
+    [:labels, 'td[3]//text()']
   ].each do |name, xpath|
-    detail[name] = row.at_xpath(xpath).to_s.strip
+    album [name] = row.at_xpath(xpath).to_s.strip
   end
-  detail
+  album 
 end
-pp details
+
+builder = Nokogiri::XML::Builder.new do |xml|
+    xml.albums {
+        albums.each do |a|
+        xml.album {
+            xml.title_ a[:title]
+            xml.year_  a[:year]
+            xml.labels_  a[:labels]
+        }
+        end 
+    }
+end
+
+puts builder.to_xml
 
 
 
