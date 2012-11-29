@@ -5,6 +5,7 @@
     <xsl:output method="html" indent="yes" version="4.0"/>
     
     <!-- Document Sources -->
+    <xsl:variable name="flickr" select="document('./flickr.xml')"/>
     <xsl:variable name="discogs" select="document('./discogs.xml')"/>
     <xsl:variable name="youtube" select="document('./youtube.xml')"/>
     <xsl:variable name="songkick" select="document('./songkick.xml')"/>
@@ -24,7 +25,14 @@
                 <div class="container">
                     
                     <div class="page-header">
-                        <h2>Information for the artist: Coldplay</h2>
+                        <h2>Information for the artist: ARTIST_NAME</h2>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="span12"> 
+                            <h2>Images</h2>
+                            <xsl:call-template name="generateImages" />  
+                        </div>
                     </div>
                     
                     <div class="row">
@@ -59,6 +67,17 @@
             </body>
         </html>
     </xsl:template>
+    
+    
+    <!-- HTML for images from flickr.xml -->
+    <xsl:template name="generateImages">
+        <ul>
+            <xsl:for-each select="$flickr//img">
+                <xsl:copy-of select="."/> 
+            </xsl:for-each>
+        </ul>
+    </xsl:template>
+    
     
     <!-- HTML for discography from discogs.xml -->
     <xsl:template name="generateDiscography">
