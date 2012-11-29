@@ -16,37 +16,44 @@ echo
 ##  Check if an argument was provided
 ##  ---------------------------------
 
-
 [[ $# -eq 0 ]] && usage
 
 
-#:: Start the various jobs
-#:: ----------------------
-#echo [INFO] Retrieving information for artist: %1%
+##  Start the various jobs
+##  ----------------------
+echo [INFO] Retrieving information for artist: $1
 
 
-#:: Create directories
-#::-------------------
-#echo [INFO] Creating temporary directories
-#mkdir out
-#mkdir temp
+##  Create directories
+## -------------------
+echo [INFO] Creating temporary directories
+mkdir out
+mkdir temp
 
-#:: Copy files
-#:: ----------
-#echo [INFO] Copying some files...
-#cp wrappers\integration.xslt out\integration.xslt
-#cp wrappers\dummy.xml out\dummy.xml
-#cp wrappers\concert_dates\songkick.txt temp\songkick.txt
-#cp wrappers\products\amazon.txt temp\amazon.txt
+##  Copy files
+##  ----------
+echo [INFO] Copying some files...
+cp ./wrappers/integration.xslt ./out/integration.xslt
+cp ./wrappers/dummy.xml ./out/dummy.xml
+cp ./wrappers/concert_dates/songkick.txt ./temp/songkick.txt
+cp ./wrappers/products/amazon.txt ./temp/amazon.txt
 
 
-#:: Replacing ARTIST_NAME with real artist name
-#:: -------------------------------------------
-#echo [INFO] Replacing string "ARTIST_NAME" with %1%
-#util\fart -- temp\amazon.txt ARTIST_NAME %1%
-#util\fart -- temp\songkick.txt ARTIST_NAME %1%
-#util\fart -- out\integration.xslt ARTIST_NAME %1%
+##  Replacing ARTIST_NAME with real artist name
+##  -------------------------------------------
+echo [INFO] Replacing string "ARTIST_NAME" with $1
 
+OLD="ARTIST_NAME"
+NEW=$1
+declare -a SourceFiles=('temp/amazon.txt' 'temp/songkick.txt' 'out/integration.xslt')
+for f in $SourceFiles
+do
+    if [ -f $f -a -r $f ]; then
+        sed -i "s/$OLD/$NEW/g" "$f"
+    else
+        echo "Error: Cannot read $f"
+    fi
+done
 
 #:: Start xulrunner (needed for Oxpath)
 #:: -----------------------------------
