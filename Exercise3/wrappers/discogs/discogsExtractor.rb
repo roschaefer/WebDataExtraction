@@ -46,6 +46,7 @@ artists = search_results.link_with(:text => 'Artist').click
 
 artist = artists.link_with(:class => /search_result_title/).click
 #TODO fetch more than the default size of albums
+#Excuse: Discogs appends entries to the table via javascript and according to stackoverflow one can forget mechanize when it comes to javascript 
 
 
 doc = Nokogiri::HTML(artist.body)
