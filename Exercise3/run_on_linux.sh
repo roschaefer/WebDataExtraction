@@ -7,9 +7,8 @@
 ## USAGE
 
 function usage() {
-echo
 echo [USAGE]: %0% name_of_an_artist
-echo
+exit 1
 }
 
 
@@ -55,36 +54,32 @@ do
     fi
 done
 
-#:: Start xulrunner (needed for Oxpath)
-#:: -----------------------------------
-#echo [INFO] Starting xulrunner
-#oxpath\xulrunner\win32\xulrunner --register-user
 
 
-#:: Wrapper: Youtube Videos
-#:: -----------------------
-#echo [INFO] Searching for youtube videos
-#javac wrappers\youtube\YoutubeExtractor.java -cp wrappers\youtube\jsoup-1.7.1.jar;wrappers\youtube\commons-lang3-3.1.jar -d temp\
-#java -classpath wrappers\youtube\jsoup-1.7.1.jar;wrappers\youtube\commons-lang3-3.1.jar;temp\ YoutubeExtractor "%1%"
-#mv youtube.xml out\
+##  Wrapper: Youtube Videos
+##  -----------------------
+echo [INFO] Searching for youtube videos
+javac wrappers/youtube/YoutubeExtractor.java -cp wrappers/youtube/jsoup-1.7.1.jar:wrappers/youtube/commons-lang3-3.1.jar -d temp/
+java -classpath wrappers/youtube/jsoup-1.7.1.jar:wrappers/youtube/commons-lang3-3.1.jar:temp/ YoutubeExtractor $1
+mv "youtube.xml" "out/"
 
 
-#:: Wrapper: Songkick Concert Dates
-#:: -------------------------------
+##  Wrapper: Songkick Concert Dates
+##  -------------------------------
 #echo [INFO] Searching for concert dates
 #java -jar oxpath\win32\oxpath-win32.jar --xml temp\songkick.txt > out\songkick.xml
 
 
-#:: Wrapper: Amazon Products
-#:: ------------------------
+##  Wrapper: Amazon Products
+##  ------------------------
 #echo [INFO] Searching for products on amazon
 #java -jar oxpath\win32\oxpath-win32.jar --xml temp\amazon.txt > out\amazon.xml
 
 
-#:: Wrapper: Discogs Discography
-#:: ----------------------------
-#echo [INFO] Searching for discography on discogs
-#ruby wrappers\discogs\discogsExtractor.rb -a %1% > out\discogs.xml
+##  Wrapper: Discogs Discography
+##  ----------------------------
+echo [INFO] Searching for discography on discogs
+ruby wrappers/discogs/discogsExtractor.rb -a $1 > out/discogs.xml
 
 
 #:: Error Handling: I don't know why, but the 1st line created by oxpath is always garbage -> remove it
@@ -96,31 +91,18 @@ done
 
 #:: Integration using xslt
 #:: ----------------------
-#echo [INFO] Integrating .xml files using XSLT
-#java -jar util\saxon9.jar out\dummy.xml out\integration.xslt > integrated_data.html
+echo [INFO] Integrating .xml files using XSLT
+xsltproc out/integration.xslt out/dummy.xml > integrated_data.html
 
 
 
+##  Clean up
+##  --------
+echo [INFO] Cleaning up
+rm -rf temp\ 
+rm -rf out\ 
 
 
-#:: TODO - remove me !!!
-#GOTO END
-
-
-
-
-
-
-
-#:: Clean up
-#:: --------
-#echo [INFO] Cleaning up
-#del temp\ /f /s /q
-#del out\ /f /s /q
-#rmdir temp\
-#rmdir out\
-
-
-#GOTO END
+exit 0
 
 
