@@ -32,10 +32,10 @@ mkdir temp
 ##  Copy files
 ##  ----------
 echo [INFO] Copying some files...
-cp ./wrappers/integration.xslt ./out/integration.xslt
-cp ./wrappers/dummy.xml ./out/dummy.xml
-cp ./wrappers/concert_dates/songkick.txt ./temp/songkick.txt
-cp ./wrappers/products/amazon.txt ./temp/amazon.txt
+cp wrappers/integration.xslt out/integration.xslt
+cp wrappers/dummy.xml out/dummy.xml
+cp wrappers/concert_dates/songkick.txt temp/songkick.txt
+cp wrappers/products/amazon.txt temp/amazon.txt
 
 
 ##  Replacing ARTIST_NAME with real artist name
@@ -53,7 +53,6 @@ do
         echo "Error: Cannot read $f"
     fi
 done
-
 
 
 ##  Wrapper: Youtube Videos
@@ -99,8 +98,9 @@ xsltproc out/integration.xslt out/dummy.xml > integrated_data.html
 ##  Clean up
 ##  --------
 echo [INFO] Cleaning up
-rm -rf temp\ 
-rm -rf out\ 
+
+rm -rf temp/
+rm -rf out/
 
 
 exit 0
