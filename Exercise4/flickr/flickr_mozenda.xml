@@ -1,0 +1,135 @@
+<!-- Copyright (C) 2008 Mozenda, Inc. All rights reserved. -->
+
+<Agent>
+  <Version>1.0i</Version>
+  <IeVersion>7.0</IeVersion>
+  <AgentDefinition>
+
+    <!--- - - - - - - - Actions - - - - - - - - -->
+
+    <ActionList>
+
+      <Action>
+        <ActionType>LoadPage</ActionType>
+        <Page>0</Page>
+        <DestinationPage>1</DestinationPage>
+        <TopLevelNav>True</TopLevelNav>
+        <TopLevelNavCount>1</TopLevelNavCount>
+        <PageUrl>http://www.flickr.com/</PageUrl>
+      </Action>
+
+      <!-- Page 1 -->
+
+      <Action>
+        <ActionType>PagePlaceHolder</ActionType>
+        <Page>1</Page>
+        <ItemType>PlaceHolder</ItemType>
+        <LoadUrl>http://www.flickr.com/</LoadUrl>
+        <BaseUrl>http://www.flickr.com/</BaseUrl>
+        <CaptureScreenShot>False</CaptureScreenShot>
+      </Action>
+
+      <Action>
+        <ActionType>BeginDataList</ActionType>
+        <Page>1</Page>
+        <ItemType>PlaceHolder</ItemType>
+        <Name>, All items (1017)</Name>
+        <ListName>, All items (1017)</ListName>
+        <ViewID>1017</ViewID>
+      </Action>
+
+      <Action>
+        <ActionType>SetElementValue</ActionType>
+        <Page>1</Page>
+        <ItemType>PlaceHolder</ItemType>
+        <ItemXPath>//*[@id=&amp;quot;nav-selecta-field&amp;quot;]</ItemXPath>
+        <ItemXPath>/html[1]/body[1]/div[1]/div[2]/div[1]/div[1]/form[1]/input[1]</ItemXPath>
+        <Name>q</Name>
+        <Value>%A%</Value>
+      </Action>
+
+      <Action>
+        <ActionType>ClickElement</ActionType>
+        <Page>1</Page>
+        <DestinationPage>2</DestinationPage>
+        <TopLevelNav>True</TopLevelNav>
+        <TopLevelNavCount>1</TopLevelNavCount>
+        <ItemType>PlaceHolder</ItemType>
+        <ItemXPath>//*[@id=&amp;quot;nav-selecta-search-button&amp;quot;]</ItemXPath>
+        <ItemXPath>/html[1]/body[1]/div[1]/div[2]/div[1]/div[1]/form[1]/input[3]</ItemXPath>
+        <ID>nav-selecta-search-button</ID>
+      </Action>
+
+      <Action>
+        <ActionType>EndList</ActionType>
+        <Page>1</Page>
+        <ListName>, All items (1017)</ListName>
+      </Action>
+
+      <!-- Page 2 -->
+
+      <Action>
+        <ActionType>PagePlaceHolder</ActionType>
+        <Page>2</Page>
+        <ItemType>PlaceHolder</ItemType>
+        <LoadUrl>http://www.flickr.com/search/?q=LMFAO&amp;amp;f=hp</LoadUrl>
+        <BaseUrl>http://www.flickr.com/search/</BaseUrl>
+        <QueryStringVariable>q</QueryStringVariable>
+        <QueryStringVariable>f</QueryStringVariable>
+        <CaptureScreenShot>False</CaptureScreenShot>
+      </Action>
+
+      <Action>
+        <ActionType>BeginAnchorList</ActionType>
+        <Page>2</Page>
+        <ItemType>PlaceHolder</ItemType>
+        <ItemXPath>//*[@id=&amp;quot;resultsthumbsdiv&amp;quot;]/div/div[1]/span[1]/a[1]/img[1]</ItemXPath>
+        <ItemXPath>/html[1]/body[1]/div[2]/div[3]/div[1]/div[2]/div[1]/div/div[1]/span[1]/a[1]/img[1]</ItemXPath>
+        <ListName>PictureList</ListName>
+        <ListItem>1-10</ListItem>
+      </Action>
+
+      <Action>
+        <ActionType>GetElementValue</ActionType>
+        <Description>Captures the text of the list item</Description>
+        <Page>2</Page>
+        <ItemType>PlaceHolder</ItemType>
+        <ItemXPath>.</ItemXPath>
+        <FieldValueType>Outer</FieldValueType>
+        <FieldExpression>src=&amp;quot;%Picture%&amp;quot;</FieldExpression>
+      </Action>
+
+      <Action>
+        <ActionType>GetElementValue</ActionType>
+        <Page>2</Page>
+        <ItemType>PlaceHolder</ItemType>
+        <ItemXPath>../../../following-sibling::p[1]</ItemXPath>
+        <FieldExpression>%Author%</FieldExpression>
+      </Action>
+
+      <Action>
+        <ActionType>EndList</ActionType>
+        <Page>2</Page>
+        <ListName>PictureList</ListName>
+      </Action>
+
+      <Action>
+        <ActionType>PageList</ActionType>
+        <Description>Clicks a link named 'next →' to page the list</Description>
+        <Page>2</Page>
+        <IsOptional>True</IsOptional>
+        <IsNavigationOptional>True</IsNavigationOptional>
+        <DestinationPage>2</DestinationPage>
+        <TopLevelNav>True</TopLevelNav>
+        <TopLevelNavCount>1</TopLevelNavCount>
+        <ItemType>HyperLink</ItemType>
+        <AssociatedTextXPath>//a[normalize-space(.)='next →']</AssociatedTextXPath>
+        <ItemXPath>.</ItemXPath>
+        <Value>next →</Value>
+        <ListName>PictureList</ListName>
+      </Action>
+
+    </ActionList>
+
+  </AgentDefinition>
+</Agent>

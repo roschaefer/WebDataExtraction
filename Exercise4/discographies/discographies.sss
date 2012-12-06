@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scraping-session use-strict-mode="true"><script-instances><script-instances when-to-run="10" sequence="1" enabled="true"><script><script-text>File inputFile = new File( "INPUT.txt" );
+<scraping-session use-strict-mode="true"><script-instances><script-instances when-to-run="10" sequence="1" enabled="true"><script><script-text>File inputFile = new File( &quot;INPUT.txt&quot; );
 
 // These two objects are needed to read the file.
 FileReader in = new FileReader (inputFile);
 BufferedReader buffRead = new BufferedReader (in);
 
-FileWriter out = new FileWriter ("discographies.xml");
-out.write ("&lt;result&gt;\n");
-out.write ("\t&lt;discographies&gt;\n");
+FileWriter out = new FileWriter (&quot;discographies.xml&quot;);
+out.write (&quot;&lt;result>\n&quot;);
+out.write (&quot;\t&lt;discographies>\n&quot;);
 out.close ();
 
 
@@ -15,10 +15,10 @@ out.close ();
 // will contain a search term.
 while (( searchTerm = buffRead.readLine ())!=null) {
     // Set a session variable corresponding to the search term.
-    session.setVariable ("SEARCH", searchTerm);
+    session.setVariable (&quot;SEARCH&quot;, searchTerm);
 
     // Get search results for this particular search term.
-    session.scrapeFile ("SearchArtists");
+    session.scrapeFile (&quot;SearchArtists&quot;);
 }
 
 
@@ -27,48 +27,75 @@ in.close ();
 buffRead.close ();
 </script-text><name>Discographies-Start</name><language>Interpreted Java</language></script></script-instances><script-instances when-to-run="20" sequence="2" enabled="true"><script><script-text>FileWriter out = null;
 try {
-	session.log( "Writing data to a file." );
+	session.log( &quot;Writing data to a file.&quot; );
 
 	// Open up the file to be appended to.
-	out = new FileWriter ("discographies.xml", true);
-	out.write ("\t&lt;/discographies&gt;\n");
-	out.write ("&lt;/result&gt;\n");
+	out = new FileWriter (&quot;discographies.xml&quot;, true);
+	out.write (&quot;\t&lt;/discographies>\n&quot;);
+	out.write (&quot;&lt;/result>\n&quot;);
 	out.close ();
 } catch (Exception e) {
-   session.log ("An error occurred while writing the data to a file: " + e.getMessage());
+   session.log (&quot;An error occurred while writing the data to a file: &quot; + e.getMessage());
 }
-</script-text><name>Discographies-Stop</name><language>Interpreted Java</language></script></script-instances><owner-type>ScrapingSession</owner-type><owner-name>Discographies</owner-name></script-instances><name>Discographies</name><notes></notes><cookiePolicy>0</cookiePolicy><maxHTTPRequests>1</maxHTTPRequests><external_proxy_username></external_proxy_username><external_proxy_password></external_proxy_password><external_proxy_host></external_proxy_host><external_proxy_port></external_proxy_port><external_nt_proxy_username></external_nt_proxy_username><external_nt_proxy_password></external_nt_proxy_password><external_nt_proxy_domain></external_nt_proxy_domain><external_nt_proxy_host></external_nt_proxy_host><anonymize>false</anonymize><terminate_proxies_on_completion>false</terminate_proxies_on_completion><number_of_required_proxies>5</number_of_required_proxies><originator_edition>0</originator_edition><logging_level>1</logging_level><date_exported>December 06, 2012 18:05:29</date_exported><character_set>UTF-8</character_set><created_by_version>6.0</created_by_version><scrapeable-files sequence="-1" will-be-invoked-manually="true" tidy-html="jtidy"><last-scraped-data></last-scraped-data><URL>~#ArtistLink#~</URL><last-request></last-request><name>ArtistPage</name><extractor-patterns sequence="1" automatically-save-in-session-variable="false" if-saved-in-session-variable="0" filter-duplicates="false" cache-data-set="false" will-be-invoked-manually="false"><pattern-text>&lt;tr&gt;
-            &lt;td class="year "~@bla1@~&gt;~@Year@~&lt;/td&gt;
-            ~@bla2@~
-            &lt;td class="title primary_link" data-sort-value="~@bla4@~"&gt;                                
-                &lt;a href="~@AlbumDetailsLink@~" class="title full-title"~@bla3@~&gt;~@Title@~&lt;/a&gt; </pattern-text><identifier>ExtractAlbumsPattern</identifier><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="5"><regular-expression>[^"]*</regular-expression><identifier>AlbumDetailsLink</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="3"><regular-expression>.{0,1000}</regular-expression><identifier>bla2</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="7"><regular-expression>[^&lt;&gt;]*</regular-expression><identifier>Title</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="1"><regular-expression>[^&lt;&gt;]*</regular-expression><identifier>bla1</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="2"><regular-expression>[^&lt;&gt;]*</regular-expression><identifier>Year</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="4"><regular-expression>[^"]*</regular-expression><identifier>bla4</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="6"><regular-expression>.{0,400}</regular-expression><identifier>bla3</identifier></extractor-pattern-tokens><script-instances><script-instances when-to-run="80" sequence="1" enabled="true"><script><script-text>FileWriter out = null;
+</script-text><name>Discographies-Stop</name><language>Interpreted Java</language></script></script-instances><owner-type>ScrapingSession</owner-type><owner-name>Discographies</owner-name></script-instances><name>Discographies</name><notes></notes><cookiePolicy>0</cookiePolicy><maxHTTPRequests>1</maxHTTPRequests><external_proxy_username></external_proxy_username><external_proxy_password></external_proxy_password><external_proxy_host></external_proxy_host><external_proxy_port></external_proxy_port><external_nt_proxy_username></external_nt_proxy_username><external_nt_proxy_password></external_nt_proxy_password><external_nt_proxy_domain></external_nt_proxy_domain><external_nt_proxy_host></external_nt_proxy_host><anonymize>false</anonymize><terminate_proxies_on_completion>false</terminate_proxies_on_completion><number_of_required_proxies>5</number_of_required_proxies><originator_edition>0</originator_edition><logging_level>1</logging_level><date_exported>Dezember 06, 2012 21:23:27</date_exported><character_set>UTF-8</character_set><created_by_version>6.0</created_by_version><scrapeable-files sequence="-1" will-be-invoked-manually="true" tidy-html="jtidy"><last-scraped-data></last-scraped-data><URL>~#AlbumDetailsLink#~</URL><last-request></last-request><name>AlbumDetails</name><extractor-patterns sequence="1" automatically-save-in-session-variable="false" if-saved-in-session-variable="0" filter-duplicates="false" cache-data-set="false" will-be-invoked-manually="false"><pattern-text> &lt;td class=&quot;title&quot;>
+                        &lt;div class=&quot;title&quot;>
+                            &lt;a href=&quot;~@AnyLink@~&quot; class=&quot;primary_link&quot;>~@Track@~&lt;/a>
+</pattern-text><identifier>Untitled Extractor Pattern</identifier><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="1"><regular-expression>[^&quot;]*</regular-expression><identifier>AnyLink</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="2"><regular-expression>[^&lt;>]*</regular-expression><identifier>Track</identifier></extractor-pattern-tokens><script-instances><script-instances when-to-run="80" sequence="1" enabled="true"><script><script-text>FileWriter out = null;
 try {
-	session.log( "Writing data to a file." );
+	session.log( &quot;Writing data to a file.&quot; );
 
 	// Open up the file to be appended to.
-	out = new FileWriter ("discographies.xml", true);
+	out = new FileWriter (&quot;discographies.xml&quot;, true);
 
   // Write out the data to the file.
 
-	String title = dataRecord.get ("Title");
-	String year = dataRecord.get ("Year").trim();
+	String track = dataRecord.get (&quot;Track&quot;);
+	
 	
 
-	out.write ("\t\t&lt;album&gt;\n");
+
+	out.write (&quot;\t\t\t\t&lt;track>&quot; + track.replaceAll(&quot;&amp;&quot;, &quot;and&quot;) + &quot;&lt;/track>\n&quot;);
+
+
+	// Close up the file.
+	out.close();
+
+
+
+} catch(Exception e) {
+   session.log( &quot;An error occurred while writing the data to a file: &quot; + e.getMessage() );
+}</script-text><name>Discographies-ExtractDetails</name><language>Interpreted Java</language></script></script-instances><owner-type>ExtractorPattern</owner-type><owner-name>Untitled Extractor Pattern</owner-name></script-instances></extractor-patterns><script-instances><owner-type>ScrapeableFile</owner-type><owner-name>AlbumDetails</owner-name></script-instances></scrapeable-files><scrapeable-files sequence="-1" will-be-invoked-manually="true" tidy-html="jtidy"><last-scraped-data></last-scraped-data><URL>~#ArtistLink#~</URL><last-request></last-request><name>ArtistPage</name><extractor-patterns sequence="1" automatically-save-in-session-variable="false" if-saved-in-session-variable="0" filter-duplicates="false" cache-data-set="false" will-be-invoked-manually="false"><pattern-text>&lt;tr>
+            &lt;td class=&quot;year &quot;~@bla1@~>~@Year@~&lt;/td>
+            ~@bla2@~
+            &lt;td class=&quot;title primary_link&quot; data-sort-value=&quot;~@bla4@~&quot;>                                
+                &lt;a href=&quot;~@AlbumDetailsLink@~&quot; class=&quot;title full-title&quot;~@bla3@~>~@Title@~&lt;/a> </pattern-text><identifier>ExtractAlbumsPattern</identifier><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="2"><regular-expression>[^&lt;>]*</regular-expression><identifier>Year</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="3"><regular-expression>.{0,1000}</regular-expression><identifier>bla2</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="4"><regular-expression>[^&quot;]*</regular-expression><identifier>bla4</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="5"><regular-expression>[^&quot;]*</regular-expression><identifier>AlbumDetailsLink</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="1"><regular-expression>[^&lt;>]*</regular-expression><identifier>bla1</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="7"><regular-expression>[^&lt;>]*</regular-expression><identifier>Title</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="6"><regular-expression>.{0,400}</regular-expression><identifier>bla3</identifier></extractor-pattern-tokens><script-instances><script-instances when-to-run="80" sequence="1" enabled="true"><script><script-text>FileWriter out = null;
+try {
+	session.log( &quot;Writing data to a file.&quot; );
+
+	// Open up the file to be appended to.
+	out = new FileWriter (&quot;discographies.xml&quot;, true);
+
+  // Write out the data to the file.
+
+	String title = dataRecord.get (&quot;Title&quot;);
+	String year = dataRecord.get (&quot;Year&quot;).trim();
+	
+
+	out.write (&quot;\t\t&lt;album>\n&quot;);
 
 	// I know, I know ...
 		// yeah, I know too ;)
-	out.write ("\t\t\t&lt;title&gt;" + title + "&lt;/title&gt;\n");
-	out.write ("\t\t\t&lt;year&gt;" + year + "&lt;/year&gt;\n");
+	out.write (&quot;\t\t\t&lt;title>&quot; + title.replaceAll(&quot;&amp;&quot;, &quot;and&quot;) + &quot;&lt;/title>\n&quot;);
+	out.write (&quot;\t\t\t&lt;year>&quot; + year + &quot;&lt;/year>\n&quot;);
 	
-	out.write ("\t\t\t&lt;tracks&gt;\n");
+	out.write (&quot;\t\t\t&lt;tracks>\n&quot;);
 	out.close();
 	
-	session.scrapeFile ("AlbumDetails");
+	session.scrapeFile (&quot;AlbumDetails&quot;);
 
-	out = new FileWriter ("discographies.xml", true);
-	out.write ("\t\t\t&lt;/tracks&gt;\n");
-	out.write ("\t\t&lt;/album&gt;\n");
+	out = new FileWriter (&quot;discographies.xml&quot;, true);
+	out.write (&quot;\t\t\t&lt;/tracks>\n&quot;);
+	out.write (&quot;\t\t&lt;/album>\n&quot;);
 
 	// Close up the file.
 	out.close();
@@ -76,35 +103,8 @@ try {
 	
 
 } catch(Exception e) {
-   session.log( "An error occurred while writing the data to a file: " + e.getMessage() );
+   session.log( &quot;An error occurred while writing the data to a file: &quot; + e.getMessage() );
 }
-</script-text><name>Discographies-Extract</name><language>Interpreted Java</language></script></script-instances><owner-type>ExtractorPattern</owner-type><owner-name>ExtractAlbumsPattern</owner-name></script-instances></extractor-patterns><script-instances><owner-type>ScrapeableFile</owner-type><owner-name>ArtistPage</owner-name></script-instances></scrapeable-files><scrapeable-files sequence="-1" will-be-invoked-manually="true" tidy-html="jtidy"><last-scraped-data></last-scraped-data><URL>~#AlbumDetailsLink#~</URL><last-request></last-request><name>AlbumDetails</name><extractor-patterns sequence="1" automatically-save-in-session-variable="false" if-saved-in-session-variable="0" filter-duplicates="false" cache-data-set="false" will-be-invoked-manually="false"><pattern-text> &lt;td class="title"&gt;
-                        &lt;div class="title"&gt;
-                            &lt;a href="~@AnyLink@~" class="primary_link"&gt;~@Track@~&lt;/a&gt;
-</pattern-text><identifier>Untitled Extractor Pattern</identifier><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="2"><regular-expression>[^&lt;&gt;]*</regular-expression><identifier>Track</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="1"><regular-expression>[^"]*</regular-expression><identifier>AnyLink</identifier></extractor-pattern-tokens><script-instances><script-instances when-to-run="80" sequence="1" enabled="true"><script><script-text>FileWriter out = null;
-try {
-	session.log( "Writing data to a file." );
-
-	// Open up the file to be appended to.
-	out = new FileWriter ("discographies.xml", true);
-
-  // Write out the data to the file.
-
-	String track = dataRecord.get ("Track");
-	
-	
-
-
-	out.write ("\t\t\t\t&lt;track&gt;" + track + "&lt;/track&gt;\n");
-
-
-	// Close up the file.
-	out.close();
-
-
-
-} catch(Exception e) {
-   session.log( "An error occurred while writing the data to a file: " + e.getMessage() );
-}</script-text><name>Discographies-ExtractDetails</name><language>Interpreted Java</language></script></script-instances><owner-type>ExtractorPattern</owner-type><owner-name>Untitled Extractor Pattern</owner-name></script-instances></extractor-patterns><script-instances><owner-type>ScrapeableFile</owner-type><owner-name>AlbumDetails</owner-name></script-instances></scrapeable-files><scrapeable-files sequence="-1" will-be-invoked-manually="true" tidy-html="jtidy"><last-scraped-data></last-scraped-data><URL>http://www.allmusic.com/search/artists/~#SEARCH#~</URL><last-request></last-request><name>SearchArtists</name><extractor-patterns sequence="1" automatically-save-in-session-variable="false" if-saved-in-session-variable="0" filter-duplicates="false" cache-data-set="false" will-be-invoked-manually="false"><pattern-text>~@Anything@~
-            &lt;div class="name"&gt;
-                &lt;a href="~@ArtistLink@~"</pattern-text><identifier>ArtistTablePattern</identifier><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="1"><regular-expression>search-results.{1,1100}</regular-expression><identifier>Anything</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="2"><regular-expression>[^"]*</regular-expression><identifier>ArtistLink</identifier></extractor-pattern-tokens><script-instances><script-instances when-to-run="85" sequence="1" enabled="true"><script><script-text>session.scrapeFile ("ArtistPage");</script-text><name>Discographies-NextArtistPage</name><language>Interpreted Java</language></script></script-instances><owner-type>ExtractorPattern</owner-type><owner-name>ArtistTablePattern</owner-name></script-instances></extractor-patterns><script-instances><owner-type>ScrapeableFile</owner-type><owner-name>SearchArtists</owner-name></script-instances></scrapeable-files></scraping-session>
+</script-text><name>Discographies-Extract</name><language>Interpreted Java</language></script></script-instances><owner-type>ExtractorPattern</owner-type><owner-name>ExtractAlbumsPattern</owner-name></script-instances></extractor-patterns><script-instances><owner-type>ScrapeableFile</owner-type><owner-name>ArtistPage</owner-name></script-instances></scrapeable-files><scrapeable-files sequence="-1" will-be-invoked-manually="true" tidy-html="jtidy"><last-scraped-data></last-scraped-data><URL>http://www.allmusic.com/search/artists/~#SEARCH#~</URL><last-request></last-request><name>SearchArtists</name><extractor-patterns sequence="1" automatically-save-in-session-variable="false" if-saved-in-session-variable="0" filter-duplicates="false" cache-data-set="false" will-be-invoked-manually="false"><pattern-text>~@Anything@~
+            &lt;div class=&quot;name&quot;>
+                &lt;a href=&quot;~@ArtistLink@~&quot;</pattern-text><identifier>ArtistTablePattern</identifier><extractor-pattern-tokens optional="false" save-in-session-variable="true" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="2"><regular-expression>[^&quot;]*</regular-expression><identifier>ArtistLink</identifier></extractor-pattern-tokens><extractor-pattern-tokens optional="false" save-in-session-variable="false" compound-key="true" strip-html="false" resolve-relative-url="false" replace-html-entities="false" trim-white-space="false" exclude-from-data="false" null-session-variable="false" sequence="1"><regular-expression>search-results.{1,1100}</regular-expression><identifier>Anything</identifier></extractor-pattern-tokens><script-instances><script-instances when-to-run="85" sequence="1" enabled="true"><script><script-text>session.scrapeFile (&quot;ArtistPage&quot;);</script-text><name>Discographies-NextArtistPage</name><language>Interpreted Java</language></script></script-instances><owner-type>ExtractorPattern</owner-type><owner-name>ArtistTablePattern</owner-name></script-instances></extractor-patterns><script-instances><owner-type>ScrapeableFile</owner-type><owner-name>SearchArtists</owner-name></script-instances></scrapeable-files></scraping-session>
