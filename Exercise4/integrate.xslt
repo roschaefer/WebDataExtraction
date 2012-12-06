@@ -71,7 +71,7 @@
 
     <xsl:template name="generateYoutubeVideos">
         <table class="table table-striped" >
-            <xsl:for-each select="$youtube/result/youtube//result[position() lt 10]">
+            <xsl:for-each select="$youtube/result/youtube//result[position() &lt; 10]">
 				<tr>
 					<td rowspan="6">
 						<a>
@@ -124,7 +124,7 @@
     <!-- HTML for discography from discogs.xml -->
     <xsl:template name="generateDiscography">
         <ul>
-            <xsl:for-each select="$discogs/result/discographies//result">
+            <xsl:for-each select="$discogs//album">
                 <xsl:sort select="year" order="ascending" data-type="number" />
                 <li>
                     <strong>
@@ -139,7 +139,7 @@
     
     <!-- HTML for news from pitchfork.xml -->
     <xsl:template name="generatePitchforkNews">
-        <xsl:for-each select="$pitchfork/result/pitchfork//result[position() lt 10]">
+        <xsl:for-each select="$pitchfork/result/pitchfork//result[position() &lt; 10]">
             <h3>
                 <a>
                     <xsl:attribute name="href">
