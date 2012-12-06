@@ -1,0 +1,40 @@
+TOP-LEVEL:
+
+Name: News Page
+URL: http://pitchfork.com/search/more/~#PAGE#~/
+Checkbox activated
+
+PARAMETERS (both GET):
+key = filter | value= news
+key = query  | value = ~#SEARCH#~
+
+SCRIPTS:
+Pitchfork-NEXT: 1: After file is scraped
+
+
+
+Extractor Pattern 1
+---------------------
+
+Next <span class="arrow">~@_any@~</span>
+
+
+SCRIPTS:
+Pitchfork-NEXT-MAX: 1: Once if pattern matches
+
+
+
+Extractor Pattern 2
+---------------------
+
+<li ~@_css@~>
+<h1><a href="~@LINK@~">~@HEADLINE@~</a></h1>
+
+~@_any@~
+
+<h4>~@NEWSDATE@~</h4>
+</li>
+
+
+SCRIPTS:
+Pitchfork-SEARCH-RESULTS: 1: After each pattern match

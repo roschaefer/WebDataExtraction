@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script overwrite-on-import="true"><script-text>
+//This will scrape Search results page
+
+// We are only interested in the first 10 pages for
+// performance reasons.
+
+// Feel free to remove the if to scrap them all.
+
+System.out.println (&quot;|||||| &quot; + session.getVariable (&quot;PAGE&quot;).getClass().getName());
+
+String pagestr = (String) session.getVariable (&quot;PAGE&quot;);
+int page = Integer.parseInt (pagestr.trim ());
+
+if (page &lt; 5) {
+	session.scrapeFile (&quot;Next Page&quot;);
+}
+</script-text><name>Youtube-NEXT</name><language>Interpreted Java</language><date_exported>Dezember 06, 2012 14:19:45</date_exported></script>

@@ -1,0 +1,32 @@
+FileWriter out = null;
+try {
+	session.log("[INFO] Writing SEARCH RESULTS");
+	session.log("[INFO] Current PAGE is: " + session.getVariable("PAGE"));
+
+	// Open up the file to be appended to.
+	out = new FileWriter(session.getVariable("OUT_PATH"), true);
+
+	String headline = dataRecord.get("HEADLINE");
+	String newsdate = dataRecord.get("NEWSDATE");
+	String relativeLink = dataRecord.get("LINK");
+
+	String fullLink = "http://pitchfork.com" + relativeLink;
+
+	out.write ("\t\t<result>\n");
+	out.write ("\t\t\t<headline>"+ headline +"</headline>\n");
+	out.write ("\t\t\t<newsdate>" + newsdate + "</newsdate>\n");
+	out.write ("\t\t\t<link>" + fullLink + "</link>\n");
+	out.close();
+	
+	// Continue to scrape "Details Page"
+	session.setVariable("CURRENT_LINK", relativeLink);
+	session.scrapeFile("Details Page");
+
+	// Finish the open xml tags
+	out = new FileWriter(session.getVariable("OUT_PATH"), true);
+	out.write ("\t\t</result>\n");
+	out.close();
+
+} catch(Exception e) {
+   session.log( "An error occurred while writing the data to a file: " + e.getMessage() );
+}

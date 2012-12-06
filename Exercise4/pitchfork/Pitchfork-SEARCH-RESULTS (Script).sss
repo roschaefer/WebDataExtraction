@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script overwrite-on-import="true"><script-text>FileWriter out = null;
+try {
+	session.log(&quot;[INFO] Writing SEARCH RESULTS&quot;);
+	session.log(&quot;[INFO] Current PAGE is: &quot; + session.getVariable(&quot;PAGE&quot;));
+
+	// Open up the file to be appended to.
+	out = new FileWriter(session.getVariable(&quot;OUT_PATH&quot;), true);
+
+	String headline = dataRecord.get(&quot;HEADLINE&quot;);
+	String newsdate = dataRecord.get(&quot;NEWSDATE&quot;);
+	String relativeLink = dataRecord.get(&quot;LINK&quot;);
+
+	String fullLink = &quot;http://pitchfork.com&quot; + relativeLink;
+
+	out.write (&quot;\t\t&lt;result>\n&quot;);
+	out.write (&quot;\t\t\t&lt;headline>&quot;+ headline +&quot;&lt;/headline>\n&quot;);
+	out.write (&quot;\t\t\t&lt;newsdate>&quot; + newsdate + &quot;&lt;/newsdate>\n&quot;);
+	out.write (&quot;\t\t\t&lt;link>&quot; + fullLink + &quot;&lt;/link>\n&quot;);
+	out.close();
+	
+	// Continue to scrape &quot;Details Page&quot;
+	session.setVariable(&quot;CURRENT_LINK&quot;, relativeLink);
+	session.scrapeFile(&quot;Details Page&quot;);
+
+	// Finish the open xml tags
+	out = new FileWriter(session.getVariable(&quot;OUT_PATH&quot;), true);
+	out.write (&quot;\t\t&lt;/result>\n&quot;);
+	out.close();
+
+} catch(Exception e) {
+   session.log( &quot;An error occurred while writing the data to a file: &quot; + e.getMessage() );
+}
+</script-text><name>Pitchfork-SEARCH-RESULTS</name><language>Interpreted Java</language><date_exported>Dezember 06, 2012 13:56:39</date_exported></script>

@@ -1,0 +1,19 @@
+TOP-LEVEL:
+
+Name: Details Page
+URL: http://pitchfork.com~#CURRENT_LINK#~
+Checkbox activated
+
+SCRIPTS:
+<none>
+
+
+Extractor Pattern 1
+---------------------
+
+
+<div class="player-target editorial">~@NEWS_TEXT@~</div>
+
+
+SCRIPTS:
+Pitchfork-DETAILS: 1: After each pattern matches
