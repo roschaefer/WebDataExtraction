@@ -6,7 +6,7 @@
     <xsl:variable name="flickr" select="document('./flickr.xml')"/>
     <xsl:variable name="discogs" select="document('./discographies.xml')"/>
     <xsl:variable name="youtube" select="document('./youtube.xml')"/>
-    <xsl:variable name="songkick" select="document('./songkick.xml')"/>
+    <xsl:variable name="pitchfork" select="document('./pitchfork.xml')"/>
     <xsl:variable name="amazon" select="document('./amazon.xml')"/>
     
     
@@ -17,15 +17,17 @@
         <html lang="en">
             <head>
                 <meta charset="utf-8"></meta>
-                <title>Web Data Extraction and Integration - Stage 3</title>
+                <title>Web Data Extraction and Integration - Stage 4</title>
                 <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"></link>
             </head>
             <body>
                 <div class="container">
                     
                     <div class="page-header">
-                        <h2>Information for the artist: ARTIST_NAME</h2>
+                        <h2>Integrated Data</h2>
                     </div>
+                    
+                    <hr/>
                     
                     <div class="row">
                         <div class="span12"> 
@@ -43,8 +45,8 @@
                     
                     <div class="row">
                         <div class="span12"> 
-                            <h2>Concert Dates</h2>
-                            <xsl:call-template name="generateConcertDates" />  
+                            <h2>Pitchfork News</h2>
+                            <xsl:call-template name="generatePitchforkNews" />  
                         </div>
                     </div>
                     
@@ -58,7 +60,7 @@
                     <div class="row">
                         <div class="span12"> 
                             <h2>Youtube</h2>
-                            <xsl:call-template name="generateYoutubeVideos" />  
+                            <xsl:call-template name="generateYoutubeVideos" />
                         </div>
                     </div>
                     
@@ -68,9 +70,8 @@
     </xsl:template>
 
     <xsl:template name="generateYoutubeVideos">
-		<h2>Youtube:</h2>
         <table class="table table-striped" >
-            <xsl:for-each select="$youtube//result">
+            <xsl:for-each select="$youtube/result/youtube//result[position() lt 10]">
 				<tr>
 					<td rowspan="6">
 						<a>
@@ -123,7 +124,7 @@
     <!-- HTML for discography from discogs.xml -->
     <xsl:template name="generateDiscography">
         <ul>
-            <xsl:for-each select="$discogs//album">
+            <xsl:for-each select="$discogs/result/discographies//result">
                 <xsl:sort select="year" order="ascending" data-type="number" />
                 <li>
                     <strong>
@@ -136,12 +137,34 @@
         </ul>
     </xsl:template>
     
+    <!-- HTML for news from pitchfork.xml -->
+    <xsl:template name="generatePitchforkNews">
+        <xsl:for-each select="$pitchfork/result/pitchfork//result[position() lt 10]">
+            <h3>
+                <a>
+                    <xsl:attribute name="href">
+                        <xsl:value-of select="link" />
+                    </xsl:attribute>
+                    <xsl:value-of select="headline" />                    
+                </a>
+            </h3>
+            <div>
+                <strong>
+                    <xsl:value-of select="newsdate" />
+                </strong>
+            </div>
+            <div>
+                <xsl:value-of select="article" />
+            </div>
+            <hr/>
+        </xsl:for-each>
+    </xsl:template>
+    
     <xsl:template name="generateProducts">
     </xsl:template>
     <xsl:template name="generateImages">
     </xsl:template>
-    <xsl:template name="generateConcertDates">
-    </xsl:template>
+    
 </xsl:stylesheet>
 
 
