@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script overwrite-on-import="true"><script-text>/**
+ * Set the paths of the input- and output-files.
+ * 
+ * IMPORTANT:
+ * On Windows, you have to specify the ABSOLUTE PATH to the files.
+ * Otherwise, Screen Scraper will search for relative links from its installation folder.
+ */
+session.setVariable(&quot;IN_PATH&quot;, &quot;PF_INPUT.txt&quot;);
+session.setVariable(&quot;OUT_PATH&quot;, &quot;pitchfork.xml&quot;);
+
+File inputFile = new File(session.getVariable(&quot;IN_PATH&quot;));
+BufferedReader buffRead = new BufferedReader(new FileReader(inputFile));
+
+FileWriter out = new FileWriter(session.getVariable(&quot;OUT_PATH&quot;));
+
+out.write(&quot;&lt;result>\n&quot;);
+out.write(&quot;\t&lt;pitchfork>\n&quot;);
+out.close();
+
+while((searchTerm = buffRead.readLine()) != null) {
+
+    session.setVariable(&quot;SEARCH&quot;, searchTerm);
+    session.setVariable(&quot;PAGE&quot;, 1);
+    session.setVariable(&quot;MAX_PAGES&quot;, 1);
+
+    // Get search results for this particular search term.
+    session.scrapeFile(&quot;News Page&quot;);
+}
+
+buffRead.close ();</script-text><name>Pitchfork-INIT</name><language>Interpreted Java</language><date_exported>Dezember 06, 2012 13:56:26</date_exported></script>

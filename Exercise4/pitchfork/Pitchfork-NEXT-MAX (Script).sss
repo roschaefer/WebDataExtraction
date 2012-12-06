@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script overwrite-on-import="true"><script-text>/**
+ * Increment the MAX_PAGES variable.
+ * This script is only executed if a &quot;next >>&quot; link was found on the &quot;News Page&quot;.
+ */
+Integer maxPagesInteger = (Integer) session.getVariable(&quot;MAX_PAGES&quot;);
+int maxPages = maxPagesInteger.intValue();
+
+session.log(&quot;[INFO] Incrementing MAX_PAGES. New value is: &quot; + (maxPages + 1));
+
+session.setVariable(&quot;MAX_PAGES&quot;, (maxPages + 1));</script-text><name>Pitchfork-NEXT-MAX</name><language>Interpreted Java</language><date_exported>Dezember 06, 2012 13:56:34</date_exported></script>

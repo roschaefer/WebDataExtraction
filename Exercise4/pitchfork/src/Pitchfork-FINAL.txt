@@ -1,0 +1,12 @@
+FileWriter out = null;
+try {
+	session.log("Writing data to a file.");
+
+	// Open up the file to be appended to.
+	out = new FileWriter(session.getVariable("OUT_PATH"), true);
+	out.write("\t</pitchfork>\n");
+	out.write("</result>\n");
+	out.close();
+} catch (Exception e) {
+   session.log ("An error occurred while writing the data to a file: " + e.getMessage());
+}

@@ -1,0 +1,19 @@
+/**
+ * Continue with the next "News Page", this time with PAGE++
+ * OR stop scraping the "News Page" if there is no next-link or PAGE <= 3
+ */
+Integer currentPageInteger = (Integer) session.getVariable("PAGE");
+Integer maxPagesInteger = (Integer) session.getVariable("MAX_PAGES");
+
+int currentPage = currentPageInteger.intValue();
+int maxPages = maxPagesInteger.intValue();
+
+if ((currentPage < maxPages) && (currentPage <= 3)) {
+	
+	session.setVariable("PAGE", (currentPage + 1));
+	session.scrapeFile("News Page");
+	session.log("[INFO] The next PAGE is: " + (currentPage + 1));
+	
+} else {
+	session.log("[INFO] There is NO NEXT PAGE. Finished!");
+}

@@ -1,0 +1,30 @@
+/**
+ * Set the paths of the input- and output-files.
+ * 
+ * IMPORTANT:
+ * On Windows, you have to specify the ABSOLUTE PATH to the files.
+ * Otherwise, Screen Scraper will search for relative links from its installation folder.
+ */
+session.setVariable("IN_PATH", "PF_INPUT.txt");
+session.setVariable("OUT_PATH", "pitchfork.xml");
+
+File inputFile = new File(session.getVariable("IN_PATH"));
+BufferedReader buffRead = new BufferedReader(new FileReader(inputFile));
+
+FileWriter out = new FileWriter(session.getVariable("OUT_PATH"));
+
+out.write("<result>\n");
+out.write("\t<pitchfork>\n");
+out.close();
+
+while((searchTerm = buffRead.readLine()) != null) {
+
+    session.setVariable("SEARCH", searchTerm);
+    session.setVariable("PAGE", 1);
+    session.setVariable("MAX_PAGES", 1);
+
+    // Get search results for this particular search term.
+    session.scrapeFile("News Page");
+}
+
+buffRead.close ();

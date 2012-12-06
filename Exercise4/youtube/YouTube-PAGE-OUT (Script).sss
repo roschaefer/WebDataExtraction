@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script overwrite-on-import="true"><script-text>FileWriter out = null;
+try {
+	session.log( &quot;Writing data to a file.&quot; );
+
+	// Open up the file to be appended to.
+	out = new FileWriter (session.getVariable(&quot;OUT_PATH&quot;), true);
+
+  // Write out the data to the file.
+
+	String title = dataRecord.get (&quot;TITLE&quot;);
+	String time = dataRecord.get (&quot;TIME&quot;);
+	String uploader = dataRecord.get (&quot;UPLOADER&quot;);
+	String vid = dataRecord.get (&quot;VID&quot;);
+	String views = dataRecord.get (&quot;AUFRUFE&quot;);
+
+
+	// Transform variable:
+	views = views.replaceAll (&quot;\\,&quot;, &quot;&quot;).trim ();
+	String[] tmp = views.split (&quot;\\s+&quot;);
+	views = tmp[0];
+
+
+	out.write (&quot;\t\t&lt;result>\n&quot;);
+
+	// I know, I know ...
+	out.write (&quot;\t\t\t&lt;title>&lt;![CDATA[&quot; + title + &quot;]]>&lt;/title>\n&quot;);
+	out.write (&quot;\t\t\t&lt;time>&quot; + time + &quot;&lt;/time>\n&quot;);
+	out.write (&quot;\t\t\t&lt;uploader>&quot; + uploader + &quot;&lt;/uploader>\n&quot;);
+	out.write (&quot;\t\t\t&lt;id>&quot; + vid + &quot;&lt;/id>\n&quot;);
+	out.write (&quot;\t\t\t&lt;views>&quot; + views + &quot;&lt;/views>\n&quot;);
+
+	out.write (&quot;\t\t&lt;/result>\n&quot;);
+
+
+	// Close up the file.
+	out.close();
+
+
+	// Process the detailed page:
+	// We do not need any information from the detailed view.
+	// However, the specification forces us to load the page anyway.
+	session.setVariable (&quot;VIDID&quot;, vid);
+	session.scrapeFile (&quot;Detailed&quot;);
+
+} catch(Exception e) {
+   session.log( &quot;An error occurred while writing the data to a file: &quot; + e.getMessage() );
+}
+</script-text><name>YouTube-PAGE-OUT</name><language>Interpreted Java</language><date_exported>Dezember 06, 2012 14:19:49</date_exported></script>
