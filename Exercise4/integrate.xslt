@@ -131,6 +131,15 @@
                         <xsl:value-of select="year" />
                         - 
                         <xsl:value-of select="title" />
+                        <ul>
+                            <xsl:for-each select="./tracks/track">
+                            <li>
+                                <strong>
+                                    <xsl:value-of select="./text()" />
+                                </strong>
+                            </li>
+                        </xsl:for-each>
+                    </ul>
                     </strong>
                 </li>
             </xsl:for-each>
