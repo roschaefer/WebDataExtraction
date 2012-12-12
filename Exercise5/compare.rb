@@ -16,10 +16,11 @@ where [options] are:
 EOS
     opt :infile, "Input csv file - mandatory", :type => String
     opt :outfile, "Output csv file", :type => String
+    opt :columns, "Index of string columns", :default => [0,1]
 end
 
 Trollop::die :infile, "must be given" unless opts[:infile] and File.exist?(opts[:infile]) 
-
+Trollop::die :columns, "exact two indices of string columns must be given" if opts[:columns] and opts[:columns].length != 2
 
 def soundexComparison(string1, string2)
     # this makes the program brittle of course
@@ -29,16 +30,18 @@ def soundexComparison(string1, string2)
     return Levenshtein.normalized_distance(soundex1, soundex2)
 end
 
+i = opts[:columns][0]
+j = opts[:columns][1]
 
 
 csv_string = CSV.generate do |csv|
     CSV.foreach(opts[:infile]) do |row| 
-        if row[0] === nil or row[1] === nil 
-            puts "Malformed csv file, first two values missing in a row"; exit(1)
+        if row[i] === nil or row[j] === nil 
+            puts "Malformed csv file, string values missing in a row"; exit(1)
         end
-        lvst = Levenshtein.normalized_distance(row[0], row[1])
-        soundex = soundexComparison(row[0], row[1])
-        csv << [row[0], row[1], lvst, soundex]
+        lvst = Levenshtein.normalized_distance(row[i], row[j])
+        soundex = soundexComparison(row[i], row[j])
+        csv << row.push(lvst).push(soundex)
     end
 end
 
