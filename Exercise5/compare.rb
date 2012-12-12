@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 require 'csv'
 require 'levenshtein'
 require 'trollop'
@@ -13,11 +14,12 @@ Usage:
     compare.rb [options] 
 where [options] are:
 EOS
-    opt :infile, "Input csv file", :type => String
+    opt :infile, "Input csv file - mandatory", :type => String
     opt :outfile, "Output csv file", :type => String
 end
 
 Trollop::die :infile, "must be given" unless opts[:infile] and File.exist?(opts[:infile]) 
+
 
 def soundexComparison(string1, string2)
     soundex1 = %x"./soundex #{string1}".split[1]
@@ -25,15 +27,18 @@ def soundexComparison(string1, string2)
     return Levenshtein.normalized_distance(soundex1, soundex2)
 end
 
-def output(row)
+csv_string = CSV.generate do |csv|
+    CSV.foreach(opts[:infile]) do |row| 
         lvst = Levenshtein.normalized_distance(row[0], row[1])
         soundex = soundexComparison(row[0], row[1])
-        return [row[0], row[1], lvst, soundex]
+        csv << [row[0], row[1], lvst, soundex]
+    end
 end
 
-
-CSV.open(opts[:outfile], "wb") do |csv|
-    CSV.foreach(opts[:infile]) do |row| 
-        csv << output(row)
-    end
+if opts[:outfile] 
+    f = File.new(opts[:outfile], "wb")
+    f.write(csv_string)
+    f.close
+else 
+    puts csv_string
 end
