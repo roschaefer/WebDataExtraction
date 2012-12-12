@@ -22,13 +22,20 @@ Trollop::die :infile, "must be given" unless opts[:infile] and File.exist?(opts[
 
 
 def soundexComparison(string1, string2)
+    # this makes the program brittle of course
+    # execution depends on the presence of the soundex program in the same folder and on its output
     soundex1 = %x"./soundex #{string1}".split[1]
     soundex2 = %x"./soundex #{string2}".split[1]
     return Levenshtein.normalized_distance(soundex1, soundex2)
 end
 
+
+
 csv_string = CSV.generate do |csv|
     CSV.foreach(opts[:infile]) do |row| 
+        if row[0] === nil or row[1] === nil 
+            puts "Malformed csv file, first two values missing in a row"; exit(1)
+        end
         lvst = Levenshtein.normalized_distance(row[0], row[1])
         soundex = soundexComparison(row[0], row[1])
         csv << [row[0], row[1], lvst, soundex]
