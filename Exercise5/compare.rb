@@ -25,8 +25,8 @@ Trollop::die :columns, "exact two indices of string columns must be given" if op
 def soundexComparison(string1, string2)
     # this makes the program brittle of course
     # execution depends on the presence of the soundex program in the same folder and on its output
-    soundex1 = %x"./soundex #{string1}".split[1]
-    soundex2 = %x"./soundex #{string2}".split[1]
+    soundex1 = %x"./soundex '#{string1}'".split[1]
+    soundex2 = %x"./soundex '#{string2}'".split[1]
     return Levenshtein.normalized_distance(soundex1, soundex2)
 end
 
