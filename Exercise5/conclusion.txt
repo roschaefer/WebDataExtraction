@@ -1,0 +1,24 @@
+We used as input for our evaluation two datasets:
+
+- A list of the most common typos in german, 89 in total, from the german Wikipedia.
+- A list of similar but different words in german, 60 in total, downloaded from madoo.net for linguist purposes.
+
+
+We compared our string similarity algorithms and get the following results:
+
+Only levenshtein:
+
+Presision:0,7747747748
+Recall:0,9662921348
+
+
+Levenshtein on soundex:
+
+Precision:0,6086956522
+Recall:0,9438202247
+
+
+So, we come to the conclusion, that using levenshtein only yields better results than using levenshtein on the soundex values of the strings.
+
+
+
