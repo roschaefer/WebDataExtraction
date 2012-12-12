@@ -17,6 +17,7 @@ EOS
     opt :infile, "Input csv file - mandatory", :type => String
     opt :outfile, "Output csv file", :type => String
     opt :columns, "Index of string columns", :default => [0,1]
+    opt :threshold, "Threshold value from when two strings should be considered equal", :default => 0.25
 end
 
 Trollop::die :infile, "must be given" unless opts[:infile] and File.exist?(opts[:infile]) 
@@ -40,8 +41,10 @@ csv_string = CSV.generate do |csv|
             puts "Malformed csv file, string values missing in a row"; exit(1)
         end
         lvst = Levenshtein.normalized_distance(row[i], row[j])
+        lvstSame = lvst <= opts[:threshold]
         soundex = soundexComparison(row[i], row[j])
-        csv << row.push(lvst).push(soundex)
+        soundexSame = soundex <= opts[:threshold]
+        csv << row.push(lvst).push(lvstSame).push(soundex).push(soundexSame)
     end
 end
 
