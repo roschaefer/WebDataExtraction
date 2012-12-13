@@ -4,7 +4,7 @@ We used as input for our evaluation two datasets:
 - A list of similar but different words in german, 60 in total, downloaded from madoo.net for linguist purposes.
 
 
-We compared our string similarity algorithms and get the following results:
+We compared our string similarity algorithms, used normalization and a theshold of 0.25 when two strings should be considered equal, and got the following results:
 
 Only levenshtein:
 
